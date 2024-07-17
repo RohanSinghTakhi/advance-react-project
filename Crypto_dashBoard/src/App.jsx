@@ -1,13 +1,26 @@
 import { useState } from 'react';
 import DashBoard from './pages/DashBord/DashBord'; 
 import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Transactions from './pages/transactions/transaction';
+import Support from './pages/Support/Support';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const router =createBrowserRouter([{
+    path:"/",
+    element:<DashBoard/>
+  },{
+    path:"/transactions",
+    element:<Transactions/>
+  },{
+    path:"/support",
+    element:<Support/>
+  }
 
+])
   return (
     <>
-      <DashBoard />
+      <RouterProvider router={router} />
     </>
   );
 }

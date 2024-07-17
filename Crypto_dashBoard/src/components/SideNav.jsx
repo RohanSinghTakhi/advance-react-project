@@ -1,64 +1,95 @@
-import { Box, Heading, HStack, Icon, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
-import { BiSupport } from 'react-icons/bi';
-import { BsArrowDown } from 'react-icons/bs';
-import { RxDashboard } from 'react-icons/rx';
+import { Box, HStack, Heading, Icon, Stack, Text } from "@chakra-ui/react";
+import { RxDashboard } from "react-icons/rx";
+import { BsArrowDownUp } from "react-icons/bs";
+import { BiSupport } from "react-icons/bi";
+import { Link, useLocation } from "react-router-dom";
+const Sidenav = () => {
+  const location = useLocation();
 
-function SideNav() {
+  console.log(location);
+
+  const isActiveLink = (link) => {
+    return location.pathname === link;
+  };
+
   const navLinks = [
     {
       icon: RxDashboard,
-      text: 'Dashboard',
-      link: '/'
+      text: "Dashboard",
+      link: "/",
     },
     {
-      icon: BsArrowDown,
-      text: 'Transaction',
-      link: '/Transaction'
-    }
+      icon: BsArrowDownUp,
+      text: "Transactions",
+      link: "/transactions",
+    },
   ];
 
-  return (<>
-    <Stack boxShadow="lg" maxW="16rem" h="100vh" justifyContent="space-between">
+  return (
+    <Stack
+      bg="white"
+      justify="space-between"
+      boxShadow={{
+        base: "none",
+        lg: "lg",
+      }}
+      w={{
+        base: "full",
+        lg: "16rem",
+      }}
+      h="100vh"
+    >
       <Box>
-      <Heading textAlign="center" fontSize="20px" mb="5" as="h1" pt="3.5rem">
-          @STOCK_CRYPTO   
-      </Heading>
-      {navLinks.map((nav) => (
-        <HStack
-          mt="1"
-          mx="3"
-          py="3"
-          px="4"
-          key={nav.text}
-          _hover={{ bg: '#F3F3F7', cursor: 'pointer', borderRadius: "10px" }}
-          href={nav.link}
-        >
-          <Icon as={nav.icon} />
-          <Text fontSize="14px" color="#797E82">{nav.text}</Text>
-
-        </HStack>
-      ))}
+        <Heading textAlign="center" fontSize="20px" as="h1" pt="3.5rem">
+          RohanSinghTakhi
+        </Heading>
+        <Box mt="6" mx="3">
+          {navLinks.map((nav) => (
+            <Link to={nav.link} key={nav.text}>
+              <HStack
+                bg={isActiveLink(nav.link) ? "#F3F3F7" : "transparent"}
+                color={isActiveLink(nav.link) ? "#171717" : "#797E82"}
+                borderRadius="10px"
+                py="3"
+                px="4"
+                _hover={{
+                  bg: "#F3F3F7",
+                  color: "#171717",
+                }}
+                
+              >
+                <Icon as={nav.icon} />
+                <Text fontSize="14px" fontWeight="medium">
+                  {nav.text}
+                </Text>
+              </HStack>
+            </Link>
+          ))}
+        </Box>
       </Box>
-      <Box>
-      <HStack
-          mt="1"
-          mx="3"
-          py="3"
-          px="4"
-          mb="5"
 
-          _hover={{ bg: '#F3F3F7', cursor: 'pointer', borderRadius: "10px" }}
-          
-        >
+      <Box mt="6" mx="3" mb="6">
+        <Link to="/support">
+          <HStack
+            borderRadius="10px"
+            py="3"
+            px="4"
+            bg={isActiveLink("/support") ? "#F3F3F7" : "transparent"}
+            color={isActiveLink("/support") ? "#171717" : "#797E82"}
+            _hover={{
+              bg: "#F3F3F7",
+              color: "#171717",
+            }}
+          >
             <Icon as={BiSupport} />
-            <Text fontSize="14px" color="#797E82">Support</Text>
-
+            <Text fontSize="14px" fontWeight="medium">
+              Support
+            </Text>
           </HStack>
-          </Box>
+        </Link>
+      </Box>
     </Stack>
-  </>
   );
-}
+};
 
-export default SideNav;
+export default Sidenav;
