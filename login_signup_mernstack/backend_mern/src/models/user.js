@@ -2,10 +2,10 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 
 const userSchema=new mongoose.Schema({
-    Name:{
+    name:{
         type:String,
         require:true },
-    Email:{
+    email:{
         type:String,
         require:true
     },
